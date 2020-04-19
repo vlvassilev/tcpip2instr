@@ -18,3 +18,20 @@ git clone https://git.loetlabor-jena.de/thasti/tcpip2instr.git
 cd tcpip2instr
 python tcpip2instr.py
 ```
+
+# Usage
+After running this application, a VXI11 server listens on the device for incoming connections.
+Incoming connection requests to device names of the form "gpib,X" are mapped to gpib interface 0,
+with primary address X.
+
+A simple example using python-vxi11 could look like this:
+
+```
+import vxi11
+
+instr = vxi11.Instrument("TCPIP::192.168.0.13::gpib,8::INSTR")
+
+instr.write("*IDN?")
+print(instr.read())
+```
+~                          
