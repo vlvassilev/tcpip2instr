@@ -15,8 +15,8 @@ def signal_handler(signal, frame):
                                         
 class GPIBDevice(Vxi11.InstrumentDevice):
     READ_BLOCK_SIZE = 16384
-    def __init__(self, device_name):
-        super(GPIBDevice, self).__init__(device_name)
+    def __init__(self, device_name, device_lock):
+        super(GPIBDevice, self).__init__(device_name, device_lock)
         self.gpib_id = int(device_name.split(",")[1])
         self.gpib_handle = gpib.dev(0, self.gpib_id)
         
