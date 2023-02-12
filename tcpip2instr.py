@@ -20,7 +20,7 @@ class GPIBDevice(Vxi11.InstrumentDevice):
         self.gpib_id = int(device_name.split(",")[1])
         self.gpib_handle = gpib.dev(0, self.gpib_id)
         
-    def device_write(self, opaque_data):
+    def device_write(self, opaque_data, flags, io_timeout):
         error = Vxi11.Error.NO_ERROR
         try:
             gpib.write(self.gpib_handle, opaque_data)
@@ -28,8 +28,9 @@ class GPIBDevice(Vxi11.InstrumentDevice):
             error = Vxi11.Error.IO_ERROR
         return error
     
-    def device_read(self):
+    def device_read(self, request_size, term_char, flags, io_timeout):
         error = Vxi11.Error.NO_ERROR
+        reason = 4  # TODO: should be Vxi11.RX_END
         read_bytes = self.READ_BLOCK_SIZE
         result = []
         while read_bytes == self.READ_BLOCK_SIZE:
@@ -39,7 +40,7 @@ class GPIBDevice(Vxi11.InstrumentDevice):
                 return Vxi11.Error.IO_ERROR, ""
             read_bytes = len(read_block)
             result.extend(read_block)
-        return error, bytearray(result)
+        return error, reason, bytearray(result)
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG)
