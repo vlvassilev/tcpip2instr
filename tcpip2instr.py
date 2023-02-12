@@ -21,6 +21,7 @@ class GPIBDevice(Vxi11.InstrumentDevice):
         self.gpib_handle = gpib.dev(0, self.gpib_id)
         
     def device_write(self, opaque_data, flags, io_timeout):
+        # TODO: handle flags/timeout
         error = Vxi11.Error.NO_ERROR
         try:
             gpib.write(self.gpib_handle, opaque_data)
@@ -29,6 +30,7 @@ class GPIBDevice(Vxi11.InstrumentDevice):
         return error
     
     def device_read(self, request_size, term_char, flags, io_timeout):
+        # TODO handle request_size/term_char/flags/timeout
         error = Vxi11.Error.NO_ERROR
         reason = 4  # TODO: should be Vxi11.RX_END
         read_bytes = self.READ_BLOCK_SIZE
