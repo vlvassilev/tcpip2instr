@@ -1,0 +1,7 @@
+lsi-tcpip2instr (1.0) jammy; urgency=medium
+
+  * Branched the original tcpip2instr
+  * Added serial interface support
+  * Added lsi-* prefix
+
+ -- Vladimir Vassilev <vladimir@lightside-instruments.com>  Sun, 05 Nov 2023 18:46:40 +0100
